@@ -1,0 +1,9 @@
+@model Opportunity
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div><div class="row g-3">
+<div class="col-md-6"><label asp-for="OpportunityName" class="form-label"></label><input asp-for="OpportunityName" class="form-control"/><span asp-validation-for="OpportunityName" class="text-danger"></span></div>
+<div class="col-md-6"><label asp-for="CustomerId" class="form-label">Customer</label><select asp-for="CustomerId" asp-items="ViewBag.CustomerId" class="form-select"><option value="">-- no linked customer --</option></select></div>
+<div class="col-md-4"><label asp-for="Amount" class="form-label"></label><input asp-for="Amount" class="form-control"/><span asp-validation-for="Amount" class="text-danger"></span></div>
+<div class="col-md-4"><label asp-for="Probability" class="form-label"></label><input asp-for="Probability" class="form-control"/><span asp-validation-for="Probability" class="text-danger"></span></div>
+<div class="col-md-4"><label asp-for="Stage" class="form-label"></label><select asp-for="Stage" class="form-select">@foreach(var s in new[]{"Qualification","Proposal","Negotiation","Won","Lost"}){<option>@s</option>}</select></div>
+<div class="col-md-6"><label asp-for="ExpectedCloseDate" class="form-label"></label><input asp-for="ExpectedCloseDate" type="date" class="form-control"/><span asp-validation-for="ExpectedCloseDate" class="text-danger"></span></div>
+<div class="col-12"><label asp-for="Notes" class="form-label"></label><textarea asp-for="Notes" class="form-control"></textarea></div></div>

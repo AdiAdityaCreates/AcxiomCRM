@@ -1,0 +1,6 @@
+@model Customer
+@{ ViewData["Title"] = "Customer Details"; }
+<h1 class="h2">Customer Details</h1><div class="card mt-3"><div class="card-body">
+<dl class="row">@foreach(var pair in new Dictionary<string,string?> { ["Code"]=Model.CustomerCode, ["Name"]=Model.CustomerName, ["Email"]=Model.Email, ["Phone"]=Model.Phone, ["Company"]=Model.CompanyName, ["Address"]=Model.Address, ["City"]=Model.City, ["State"]=Model.State, ["Status"]=Model.Status }) { <dt class="col-sm-3">@pair.Key</dt><dd class="col-sm-9">@pair.Value</dd> }</dl>
+<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.CustomerId">Edit</a> <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+</div></div>

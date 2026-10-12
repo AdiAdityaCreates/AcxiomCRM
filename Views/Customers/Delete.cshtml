@@ -1,0 +1,3 @@
+@model Customer
+@{ ViewData["Title"] = "Deactivate Customer"; }
+<div class="card border-warning"><div class="card-body"><h1 class="h3">Deactivate customer?</h1><p>Customer <strong>@Model.CustomerName</strong> will be marked inactive rather than permanently removed.</p><form asp-action="Delete" method="post"><input type="hidden" asp-for="CustomerId"/><button class="btn btn-warning">Deactivate</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a></form></div></div>

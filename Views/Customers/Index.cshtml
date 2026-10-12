@@ -1,0 +1,8 @@
+@model IEnumerable<Customer>
+@{ ViewData["Title"] = "Customers"; }
+<div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h2">Customers</h1><a class="btn btn-primary" asp-action="Create">+ Add Customer</a></div>
+<form method="get" class="row g-2 mb-3"><div class="col-md-5"><input name="search" value="@ViewBag.Search" class="form-control" placeholder="Search name, email, phone, company"/></div><div class="col-auto"><button class="btn btn-outline-primary">Search</button><a class="btn btn-outline-secondary" asp-action="Index">Clear</a></div></form>
+<div class="table-responsive"><table class="table table-hover align-middle bg-white"><thead><tr><th>Code</th><th>Customer</th><th>Company</th><th>Phone</th><th>Status</th><th></th></tr></thead><tbody>
+@foreach(var x in Model) { <tr><td>@x.CustomerCode</td><td><strong>@x.CustomerName</strong><br/><small class="text-muted">@x.Email</small></td><td>@x.CompanyName</td><td>@x.Phone</td><td><span class="badge text-bg-@(x.Status=="Active"?"success":"secondary")">@x.Status</span></td><td class="text-nowrap"><a asp-action="Details" asp-route-id="@x.CustomerId">Details</a> · <a asp-action="Edit" asp-route-id="@x.CustomerId">Edit</a> · <a asp-action="Delete" asp-route-id="@x.CustomerId">Deactivate</a></td></tr> }
+</tbody></table></div>
+@if (!Model.Any()) { <p class="text-muted">No customers found.</p> }

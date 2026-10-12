@@ -1,0 +1,7 @@
+@model IEnumerable<Lead>
+@{ ViewData["Title"] = "Leads"; }
+<div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h2">Leads</h1><a class="btn btn-primary" asp-action="Create">+ Add Lead</a></div>
+<form method="get" class="row g-2 mb-3"><div class="col-md-4"><input name="search" value="@ViewBag.Search" class="form-control" placeholder="Search lead/company"/></div><div class="col-md-3"><select name="status" class="form-select"><option value="">All statuses</option>@foreach(var s in new[]{"New","Contacted","Qualified","Unqualified","Converted","Lost"}){<option selected="@((string?)ViewBag.Status==s)" value="@s">@s</option>}</select></div><div class="col-auto"><button class="btn btn-outline-primary">Filter</button></div></form>
+<div class="table-responsive"><table class="table table-hover bg-white"><thead><tr><th>Lead</th><th>Company</th><th>Source</th><th>Value</th><th>Status</th><th>Priority</th><th>Actions</th></tr></thead><tbody>
+@foreach(var x in Model){<tr><td><strong>@x.LeadName</strong><br/><small>@x.Email · @x.Phone</small></td><td>@x.CompanyName</td><td>@x.Source</td><td>@x.ExpectedValue.ToString("C")</td><td>@x.Status</td><td>@x.Priority</td><td class="text-nowrap"><a asp-action="Edit" asp-route-id="@x.LeadId">Edit</a> @if(x.Status=="Qualified"){<form asp-action="Convert" asp-route-id="@x.LeadId" method="post" class="d-inline"><button class="btn btn-sm btn-outline-success">Convert</button></form>}</td></tr>}
+</tbody></table></div>

@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    var leadLabels = System.Text.Json.JsonSerializer.Serialize((string[])ViewBag.LeadLabels);
+    var leadValues = System.Text.Json.JsonSerializer.Serialize((int[])ViewBag.LeadValues);
+    var stageLabels = System.Text.Json.JsonSerializer.Serialize((string[])ViewBag.StageLabels);
+    var stageValues = System.Text.Json.JsonSerializer.Serialize((int[])ViewBag.StageValues);
+}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+ <div><h1 class="h2 mb-1">Dashboard</h1><p class="text-muted mb-0">Your CRM activity at a glance.</p></div>
+ <span class="badge text-bg-primary">@((User.IsInRole("Admin") ? "Admin" : User.IsInRole("Manager") ? "Manager" : "Sales Executive"))</span>
+</div>
+<div class="row g-3 mb-4">
+@foreach (var card in new[] {
+    ("Customers", (object)ViewBag.CustomerCount, "bi-people"),
+    ("Total Leads", (object)ViewBag.LeadCount, "bi-person-lines-fill"),
+    ("Open Leads", (object)ViewBag.OpenLeads, "bi-person-check"),
+    ("Opportunities", (object)ViewBag.OpportunityCount, "bi-briefcase"),
+    ("Open Opportunities", (object)ViewBag.OpenOpportunities, "bi-graph-up"),
+    ("Won", (object)ViewBag.Won, "bi-trophy"),
+    ("Lost", (object)ViewBag.Lost, "bi-x-circle"),
+    ("Open Pipeline", (object)(((decimal)ViewBag.Pipeline).ToString("C")), "bi-currency-rupee")
+}) {
+<div class="col-6 col-md-3"><div class="card metric-card h-100"><div class="card-body"><div class="text-muted small">@card.Item1</div><div class="display-6 fw-semibold">@card.Item2</div></div></div></div>
+}
+</div>
+<div class="row g-4">
+ <div class="col-lg-6"><div class="card h-100"><div class="card-body"><h2 class="h5">Lead Status</h2><canvas id="leadChart"></canvas></div></div></div>
+ <div class="col-lg-6"><div class="card h-100"><div class="card-body"><h2 class="h5">Opportunity Pipeline</h2><canvas id="stageChart"></canvas></div></div></div>
+</div>
+@section Scripts {
+<script>
+new Chart(document.getElementById('leadChart'), {type:'doughnut', data:{labels:@Html.Raw(leadLabels), datasets:[{data:@Html.Raw(leadValues)}]}, options:{responsive:true}});
+new Chart(document.getElementById('stageChart'), {type:'bar', data:{labels:@Html.Raw(stageLabels), datasets:[{label:'Opportunities',data:@Html.Raw(stageValues)}]}, options:{responsive:true, scales:{y:{beginAtZero:true}}}});
+</script>
+}

@@ -1,0 +1,9 @@
+:root { --crm-bg: #f5f7fb; --crm-ink: #172033; }
+body { background: var(--crm-bg); color: var(--crm-ink); }
+.navbar-brand { letter-spacing: .2px; }
+.card { border: 1px solid #e4e9f2; border-radius: 14px; box-shadow: 0 3px 12px rgba(28,42,70,.035); }
+.metric-card { background: linear-gradient(145deg, #fff, #f9fbff); }
+.metric-card .display-6 { font-size: clamp(1.5rem, 2.4vw, 2.25rem); overflow-wrap: anywhere; }
+.table { border-radius: 10px; overflow: hidden; }
+.auth-card { max-width: 470px; margin-top: 2rem; }
+footer { background: rgba(255,255,255,.65); }

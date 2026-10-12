@@ -1,0 +1,6 @@
+@model ApplicationUser
+@{ ViewData["Title"] = "Manage User"; }
+<h1 class="h2 mb-3">Manage User</h1><div class="card"><div class="card-body"><p><strong>@Model.FullName</strong> · @Model.Email</p><form asp-action="Edit" method="post"><input type="hidden" name="id" value="@Model.Id"/>
+<div class="mb-3"><label class="form-label" for="role">Primary role</label><select class="form-select" id="role" name="role" asp-items="ViewBag.Roles"></select></div>
+<div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="isActive" name="isActive" value="true" checked="@Model.IsActive"/><label class="form-check-label" for="isActive">Account active</label></div>
+<button class="btn btn-primary">Save User</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a></form></div></div>

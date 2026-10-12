@@ -1,0 +1,4 @@
+@model Lead
+@{ ViewData["Title"] = "Add Lead"; }
+<h1 class="h2 mb-3">Add Lead</h1><div class="card"><div class="card-body"><form asp-action="Create" method="post"><partial name="_Form" model="Model"/><div class="mt-4"><button class="btn btn-primary">Save Lead</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a></div></form></div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

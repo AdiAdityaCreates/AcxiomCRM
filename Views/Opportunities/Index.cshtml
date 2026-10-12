@@ -1,0 +1,7 @@
+@model IEnumerable<Opportunity>
+@{ ViewData["Title"] = "Opportunities"; }
+<div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h2">Opportunities</h1><a class="btn btn-primary" asp-action="Create">+ Add Opportunity</a></div>
+<form method="get" class="row g-2 mb-3"><div class="col-md-4"><input name="search" value="@ViewBag.Search" class="form-control" placeholder="Search opportunity/customer"/></div><div class="col-md-3"><select name="stage" class="form-select"><option value="">All stages</option>@foreach(var s in new[]{"Qualification","Proposal","Negotiation","Won","Lost"}){<option selected="@((string?)ViewBag.Stage==s)" value="@s">@s</option>}</select></div><div class="col-auto"><button class="btn btn-outline-primary">Filter</button></div></form>
+<div class="table-responsive"><table class="table table-hover bg-white"><thead><tr><th>Opportunity</th><th>Customer</th><th>Amount</th><th>Stage</th><th>Probability</th><th>Weighted</th><th>Close date</th><th></th></tr></thead><tbody>
+@foreach(var x in Model){<tr><td>@x.OpportunityName</td><td>@x.Customer?.CustomerName</td><td>@x.Amount.ToString("C")</td><td>@x.Stage</td><td>@x.Probability%</td><td>@x.WeightedPipeline.ToString("C")</td><td>@x.ExpectedCloseDate.ToString("yyyy-MM-dd")</td><td><a asp-action="Edit" asp-route-id="@x.OpportunityId">Edit</a></td></tr>}
+</tbody></table></div>

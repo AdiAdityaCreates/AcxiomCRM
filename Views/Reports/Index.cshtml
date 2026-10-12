@@ -1,0 +1,18 @@
+@using System.Globalization
+@{ ViewData["Title"] = "Reports"; }
+<h1 class="h2 mb-3">Reports</h1>
+<form method="get" class="row g-2 mb-4"><div class="col-md-3"><label class="form-label">From</label><input class="form-control" type="date" name="from" value="@ViewBag.From"/></div><div class="col-md-3"><label class="form-label">To</label><input class="form-control" type="date" name="to" value="@ViewBag.To"/></div><div class="col-auto align-self-end"><button class="btn btn-primary">Apply date filter</button><a asp-action="Index" class="btn btn-outline-secondary">Clear</a></div></form>
+<div class="row g-3 mb-4">
+@foreach(var item in new[]{("Customers",(int)ViewBag.CustomerCount),("Leads",(int)ViewBag.LeadCount),("Converted Leads",(int)ViewBag.ConvertedLeads),("Follow-ups",(int)ViewBag.FollowUpCount),("Overdue Follow-ups",(int)ViewBag.OverdueFollowUps),("Activities",(int)ViewBag.ActivityCount)}) {
+<div class="col-6 col-lg-2"><div class="card h-100"><div class="card-body"><div class="small text-muted">@item.Item1</div><div class="h2 mb-0">@item.Item2</div></div></div></div>
+}
+</div>
+<div class="card mb-4"><div class="card-body"><h2 class="h5">Opportunity Report</h2><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Opportunity</th><th>Stage</th><th>Amount</th><th>Probability</th><th>Weighted pipeline</th><th>Close date</th></tr></thead><tbody>
+@foreach(Opportunity x in (IEnumerable<Opportunity>)ViewBag.Opportunities){<tr><td>@x.OpportunityName</td><td>@x.Stage</td><td>@x.Amount.ToString("C")</td><td>@x.Probability%</td><td>@x.WeightedPipeline.ToString("C")</td><td>@x.ExpectedCloseDate.ToString("yyyy-MM-dd")</td></tr>}
+</tbody></table></div></div></div>
+<div class="card mb-4"><div class="card-body"><h2 class="h5">Lead Report</h2><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Lead</th><th>Company</th><th>Source</th><th>Status</th><th>Expected value</th></tr></thead><tbody>
+@foreach(Lead x in (IEnumerable<Lead>)ViewBag.Leads){<tr><td>@x.LeadName</td><td>@x.CompanyName</td><td>@x.Source</td><td>@x.Status</td><td>@x.ExpectedValue.ToString("C")</td></tr>}
+</tbody></table></div></div></div>
+<div class="card"><div class="card-body"><h2 class="h5">Follow-up Report</h2><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Date</th><th>Subject</th><th>Customer</th><th>Status</th></tr></thead><tbody>
+@foreach(FollowUp x in (IEnumerable<FollowUp>)ViewBag.FollowUps){<tr><td>@x.FollowUpDate.ToString("yyyy-MM-dd")</td><td>@x.Subject</td><td>@x.Customer?.CustomerName</td><td>@x.Status</td></tr>}
+</tbody></table></div></div></div>

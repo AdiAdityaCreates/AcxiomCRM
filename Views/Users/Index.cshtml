@@ -1,0 +1,5 @@
+@model IEnumerable<ApplicationUser>
+@{ ViewData["Title"] = "User Management"; }
+<h1 class="h2 mb-3">User Management</h1><div class="table-responsive"><table class="table table-hover bg-white"><thead><tr><th>Name</th><th>Email</th><th>Active</th><th>Created</th><th></th></tr></thead><tbody>
+@foreach(var u in Model){<tr><td>@u.FullName</td><td>@u.Email</td><td>@(u.IsActive?"Yes":"No")</td><td>@u.CreatedDate.ToString("yyyy-MM-dd")</td><td><a asp-action="Edit" asp-route-id="@u.Id">Manage role/status</a></td></tr>}
+</tbody></table></div>

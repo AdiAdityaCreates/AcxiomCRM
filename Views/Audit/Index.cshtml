@@ -1,0 +1,7 @@
+@model IEnumerable<AuditLog>
+@{ ViewData["Title"] = "Audit Log"; }
+<h1 class="h2 mb-3">Audit Log</h1>
+<form method="get" class="row g-2 mb-3"><div class="col-md-3"><input name="actionName" value="@ViewBag.ActionName" class="form-control" placeholder="Action"/></div><div class="col-md-3"><input name="entityName" value="@ViewBag.EntityName" class="form-control" placeholder="Entity/module"/></div><div class="col-auto"><button class="btn btn-outline-primary">Filter</button></div></form>
+<div class="table-responsive"><table class="table table-sm table-striped bg-white"><thead><tr><th>Timestamp (UTC)</th><th>User ID</th><th>Action</th><th>Entity</th><th>Record</th><th>Result</th><th>IP</th><th>Details</th></tr></thead><tbody>
+@foreach(var x in Model){<tr><td>@x.CreatedDate.ToString("u")</td><td>@x.UserId</td><td>@x.Action</td><td>@x.EntityName</td><td>@x.RecordId</td><td>@x.Result</td><td>@x.IpAddress</td><td>@x.OldValue → @x.NewValue</td></tr>}
+</tbody></table></div>
